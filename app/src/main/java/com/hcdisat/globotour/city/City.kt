@@ -3,7 +3,7 @@ package com.hcdisat.globotour.city
 import com.hcdisat.globotour.R
 
 
-data class City(var imageId: Int, var name: String, var isFavorite: Boolean)
+data class City(val imageId: Int, val name: String, val isFavorite: Boolean)
 
 
 object VacationSpots {

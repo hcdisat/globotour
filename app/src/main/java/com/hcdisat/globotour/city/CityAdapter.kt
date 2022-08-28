@@ -2,8 +2,6 @@ package com.hcdisat.globotour.city
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hcdisat.globotour.R
@@ -49,14 +47,24 @@ class CityAdapter(
             setFavorite(city)
 
             itemBinding.imvFavorite.setOnClickListener {
-                cities[position] = city.copy(isFavorite = !city.isFavorite)
-                notifyItemChanged(position)
+                toggleFavorite(position)
             }
 
             itemBinding.imvDelete.setOnClickListener {
-                cities.removeAt(position)
-                notifyDataSetChanged()
+                removeCity(position)
             }
+        }
+
+        private fun toggleFavorite(position: Int) {
+            val city = cities[position]
+            cities[position] = city.copy(isFavorite = !city.isFavorite)
+            notifyItemChanged(position)
+        }
+
+        private fun removeCity(position: Int) {
+            cities.removeAt(position)
+            notifyItemRemoved(position)
+            notifyItemRangeChanged(position, itemCount)
         }
 
         private fun setFavorite(city: City) {
