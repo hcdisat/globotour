@@ -63,5 +63,20 @@ object VacationSpots {
         }
 
     // Will contain the 'favorite' marked cities to be displayed in FavoriteFragment RecyclerView
-    val favoriteCityList: List<City> get() = cityList.filter { it.isFavorite }
+    val favoriteCityList: MutableList<City> = mutableListOf()
+
+    fun toggleFavorite(city: City) {
+        val updatedCity = city.copy(isFavorite = !city.isFavorite)
+        val position = cityList.indexOfFirst { it.name == updatedCity.name }
+        cityList[position] = updatedCity
+
+        if (updatedCity.isFavorite)
+            favoriteCityList.add(updatedCity)
+        else favoriteCityList.removeIf { updatedCity.name == it.name }
+    }
+
+    fun removeCity(city: City) {
+        cityList.removeIf { city.name == it.name }
+        favoriteCityList.removeIf { city.name == it.name }
+    }
 }

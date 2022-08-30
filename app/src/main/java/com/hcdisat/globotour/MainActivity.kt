@@ -36,31 +36,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpNavigationDrawer() {
         // appBarConfiguration
-        val appBarConfiguration = AppBarConfiguration(
-            navController.graph,
-            mainActivityBinding.drawerLayout
-        )
+        val topLevelDestinations = setOf(R.id.fragmentCityList, R.id.fragmentFavoriteList)
+        val appBarConfiguration = AppBarConfiguration(topLevelDestinations)
 
         // toolbar
         mainActivityBinding.activityMainToolbar
             .setupWithNavController(navController, appBarConfiguration)
 
         // connect navigationView
-        mainActivityBinding.navView.setupWithNavController(navController)
-
-        registerBackPressedCallBack()
-    }
-
-    private fun handleBackPressed() = when {
-        mainActivityBinding.drawerLayout.isOpen -> mainActivityBinding.drawerLayout.close()
-        else -> finish()
-    }
-
-    private fun registerBackPressedCallBack() {
-        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                handleBackPressed()
-            }
-        })
+        mainActivityBinding.bottomNavView.setupWithNavController(navController)
     }
 }

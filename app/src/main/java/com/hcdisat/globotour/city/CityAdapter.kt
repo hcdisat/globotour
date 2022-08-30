@@ -56,13 +56,12 @@ class CityAdapter(
         }
 
         private fun toggleFavorite(position: Int) {
-            val city = cities[position]
-            cities[position] = city.copy(isFavorite = !city.isFavorite)
+            VacationSpots.toggleFavorite(cities[position])
             notifyItemChanged(position)
         }
 
         private fun removeCity(position: Int) {
-            cities.removeAt(position)
+            VacationSpots.removeCity(cities[position])
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, itemCount)
         }
